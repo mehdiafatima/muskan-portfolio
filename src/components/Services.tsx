@@ -2,24 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useInView } from "react-intersection-observer";
-import {
-  Palette,
-  Code,
-  TrendingUp,
-  Share2,
-  Video,
-  ArrowRight,
-} from "lucide-react";
+import { Palette, Code, TrendingUp, Share2, Video, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const iconMap = {
-  Palette,
-  Code,
-  TrendingUp,
-  Share2,
-  Video,
-} as const;
+const iconMap = { Palette, Code, TrendingUp, Share2, Video } as const;
 
 export default function Services() {
   const services = [
@@ -90,8 +76,7 @@ export default function Services() {
             Our <span className="text-sky-600">Services</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Empowering brands with comprehensive digital solutions designed for
-            growth, innovation, and long-term impact.
+            Empowering brands with comprehensive digital solutions designed for growth, innovation, and long-term impact.
           </p>
         </motion.div>
 
@@ -99,14 +84,12 @@ export default function Services() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => {
             const Icon = iconMap[service.icon as keyof typeof iconMap];
-            const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
-
             return (
               <motion.div
                 key={service.title}
-                ref={ref}
                 initial={{ opacity: 0, y: 60 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
                 whileHover={{
                   y: -8,
@@ -126,12 +109,8 @@ export default function Services() {
                 >
                   <Icon className="w-8 h-8 text-sky-600 group-hover:text-white transition-colors" />
                 </motion.div>
-                <h3 className="text-2xl font-semibold mb-3 text-gray-900">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 text-base leading-relaxed">
-                  {service.description}
-                </p>
+                <h3 className="text-2xl font-semibold mb-3 text-gray-900">{service.title}</h3>
+                <p className="text-gray-600 text-base leading-relaxed">{service.description}</p>
               </motion.div>
             );
           })}
