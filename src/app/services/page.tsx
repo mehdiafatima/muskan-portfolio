@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/Footer";
@@ -15,18 +14,14 @@ const services = [
     video: "/v5.mp4",
     detailedDescription:
       "From logos to full brand identities, we craft visuals that speak your brand’s language with clarity and confidence.",
-    features: [
-      "Logo & brand identity",
-      "Custom illustrations",
-      "Print & digital creatives",
-    ],
+    features: ["Logo & brand identity", "Custom illustrations", "Print & digital creatives"],
   },
   {
     id: "web",
     title: "Website Development",
     video: "/v2.mp4",
     detailedDescription:
-      "We create high-quality, fully responsive websites using HTML, CSS, and JavaScript powered by Next.js, Tailwind CSS, ShadCN, and Framer Motion. Each project is built with clean, production-ready code optimized for speed, performance, and modern design aesthetics.",
+      "We create high-quality, fully responsive websites using Next.js, Tailwind CSS, ShadCN, and Framer Motion.",
     features: [
       "Custom UI/UX Design",
       "SEO-Optimized Structure",
@@ -49,11 +44,7 @@ const services = [
     video: "/v3.mp4",
     detailedDescription:
       "We manage your social presence, create engaging campaigns, and help your brand connect authentically.",
-    features: [
-      "Content creation",
-      "Campaign strategy",
-      "Performance reporting",
-    ],
+    features: ["Content creation", "Campaign strategy", "Performance reporting"],
   },
   {
     id: "video",
@@ -61,24 +52,18 @@ const services = [
     video: "/v1.mp4",
     detailedDescription:
       "Dynamic, professional video content that brings your brand to life — from storytelling to cinematic visuals.",
-    features: [
-      "Short-form & reels",
-      "Motion graphics",
-      "Color grading & sound design",
-    ],
+    features: ["Short-form & reels", "Motion graphics", "Color grading & sound design"],
   },
 ];
 
-// --- NEW: Single service component with its own useInView
 function ServiceItem({ service, index, scrollToContact }: { service: typeof services[0]; index: number; scrollToContact: () => void }) {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
   const isEven = index % 2 === 0;
 
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 60 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, delay: index * 0.1 }}
       className={`grid lg:grid-cols-2 gap-12 items-center ${!isEven ? "lg:[&>*:first-child]:order-2" : ""}`}
     >
@@ -145,17 +130,16 @@ export default function ServicesPage() {
 
   return (
     <>
-      {/* Floating Navbar */}
       <div className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-sky-100">
         <Navbar />
       </div>
 
       <main className="pt-32">
-        {/* Hero Section */}
         <section className="relative py-24 bg-gradient-to-br from-[#E8F4FF] via-[#F5FAFF] to-[#E4F1FF] text-center overflow-hidden">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.7 }}
             className="max-w-3xl mx-auto px-6"
           >
@@ -166,55 +150,29 @@ export default function ServicesPage() {
               Creative and technical expertise crafted to elevate your digital presence and make your brand unforgettable.
             </p>
           </motion.div>
-
-          {/* Floating glow elements */}
-          <motion.div
-            animate={{ y: [0, 30, 0] }}
-            transition={{ repeat: Infinity, duration: 8 }}
-            className="absolute top-0 left-0 w-72 h-72 bg-sky-100 rounded-full blur-3xl opacity-50"
-          />
-          <motion.div
-            animate={{ y: [0, -30, 0] }}
-            transition={{ repeat: Infinity, duration: 10 }}
-            className="absolute bottom-0 right-0 w-96 h-96 bg-sky-200 rounded-full blur-3xl opacity-40"
-          />
         </section>
 
-        {/* Services Section */}
         <section className="py-24 bg-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20 space-y-24">
             {services.map((service, index) => (
-              <ServiceItem
-                key={service.id}
-                service={service}
-                index={index}
-                scrollToContact={scrollToContact}
-              />
+              <ServiceItem key={service.id} service={service} index={index} scrollToContact={scrollToContact} />
             ))}
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="py-24 bg-gradient-to-br from-sky-600 to-sky-700 text-white text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="max-w-3xl mx-auto px-6"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to Get Started?
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Get Started?</h2>
             <p className="text-lg mb-8 text-white/90">
               Let’s bring your ideas to life. Reach out and let’s create something remarkable.
             </p>
-            <Button
-              size="lg"
-              variant="secondary"
-              onClick={scrollToContact}
-              className="rounded-full bg-white text-sky-700 hover:bg-sky-50 text-lg px-8"
-            >
+            <Button size="lg" variant="secondary" onClick={scrollToContact} className="rounded-full bg-white text-sky-700 hover:bg-sky-50 text-lg px-8">
               Contact Us
             </Button>
           </motion.div>
