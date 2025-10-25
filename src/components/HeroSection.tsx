@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { Star, Sparkles } from "lucide-react";
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaBehance } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 export default function HeroSection() {
   const [text] = useTypewriter({

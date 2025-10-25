@@ -45,13 +45,19 @@ const Contact = () => {
       icon: Mail,
       label: "Email",
       value: "mzdigitalarts@gmail.com",
-      href: "mailto:hello@mzdigitalarts.com",
+      href: "mailto:mzdigitalarts@gmail.com",
     },
     {
       icon: Phone,
       label: "Phone",
       value: "+92 311 9804921",
-      href: "tel:+15551234567",
+      href: "tel:+923119804921",
+    },
+    {
+      icon: MapPin,
+      label: "Address",
+      value: "Karachi, Pakistan",
+      href: "https://goo.gl/maps/xxxx", // Google Maps link
     }
   ];
 
